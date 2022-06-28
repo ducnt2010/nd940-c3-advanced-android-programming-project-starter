@@ -20,4 +20,8 @@
     <string name="loadapp_description">LoadApp - Current repository by Udacity</string>
     <string name="retrofit_description">Retrofit - Type-safe HTTP client for Android and Java by Square, Inc</string>
 
+    <string name="notification_channel_id" translatable="false">load_app_channel</string>
+    <string name="notification_channel_name" translatable="false">Load App</string>
+
+
 </resources>
