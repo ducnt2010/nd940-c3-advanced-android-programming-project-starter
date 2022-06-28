@@ -28,6 +28,6 @@
     <string name="status">Status:</string>
     <string name="success">Success</string>
     <string name="failed">Failed</string>
-
+    <string name="load_app">LoadApp</string>
 
 </resources>
