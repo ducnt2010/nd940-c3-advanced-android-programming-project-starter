@@ -27,13 +27,13 @@ class LoadingButton @JvmOverloads constructor(
     private var circleProgressRadius =
         context.resources.getDimension(R.dimen.circle_download_radius)
 
-    private val valueAnimator = ValueAnimator()
-    private val textBoundRect = Rect()
-
     private var textColor = context.getColor(R.color.white)
     private var circleColor = context.getColor(R.color.colorAccent)
     private var buttonLoadingColor = context.getColor(R.color.colorPrimaryDark)
     private var buttonBackgroundColor = context.getColor(R.color.colorPrimary)
+
+    private val valueAnimator = ValueAnimator()
+    private val textBoundRect = Rect()
 
     private var text = String()
 
@@ -41,7 +41,6 @@ class LoadingButton @JvmOverloads constructor(
         when (new) {
             ButtonState.Loading -> {
                 Log.i(TAG, "buttonState : Loading")
-
                 text = context.getString(R.string.we_are_downloading)
                 valueAnimator.setFloatValues(0f, 1f)
                 valueAnimator.apply {
@@ -125,15 +124,17 @@ class LoadingButton @JvmOverloads constructor(
         paintForColor.color = buttonBackgroundColor
         canvas.drawRect(0f, 0f, widthSize.toFloat(), heightSize.toFloat(), paintForColor)
 
-        // draw the loading progress on button
-        paintForColor.color = buttonLoadingColor
-        canvas.drawRect(
-            0f,
-            0f,
-            loadingProgress * widthSize.toFloat(),
-            heightSize.toFloat(),
-            paintForColor
-        )
+        if (buttonState == ButtonState.Loading) {
+            // draw the loading progress on button
+            paintForColor.color = buttonLoadingColor
+            canvas.drawRect(
+                0f,
+                0f,
+                loadingProgress * widthSize.toFloat(),
+                heightSize.toFloat(),
+                paintForColor
+            )
+        }
 
         // draw text and circle for state downloading and completed
         paintForText.getTextBounds(text, 0, text.length, textBoundRect)

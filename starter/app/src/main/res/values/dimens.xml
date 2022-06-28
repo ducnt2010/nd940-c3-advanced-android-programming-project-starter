@@ -2,7 +2,11 @@
     <dimen name="fab_margin">16dp</dimen>
 
     <dimen name="default_text_size">20sp</dimen>
+    <dimen name="choice_text_size">16sp</dimen>
     <dimen name="space_text_and_circle">8dp</dimen>
     <dimen name="circle_download_radius">12dp</dimen>
+    <dimen name="download_image_height">150dp</dimen>
+    <dimen name="radiogroup_padding">16dp</dimen>
+    <dimen name="radiobutton_margin">16dp</dimen>
 
 </resources>
