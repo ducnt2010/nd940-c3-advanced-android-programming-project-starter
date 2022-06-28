@@ -2,4 +2,7 @@
     <dimen name="fab_margin">16dp</dimen>
 
     <dimen name="default_text_size">20sp</dimen>
+    <dimen name="space_text_and_circle">8dp</dimen>
+    <dimen name="circle_download_radius">12dp</dimen>
+
 </resources>

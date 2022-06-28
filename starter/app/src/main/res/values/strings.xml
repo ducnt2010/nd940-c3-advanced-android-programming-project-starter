@@ -11,4 +11,8 @@
     <string name="button_name">Click me</string>
     <string name="button_loading">We are loading </string>
     <string name="title_activity_detail">DetailActivity</string>
+
+    <string name="please_select_file_message">Please select file to download</string>
+    <string name="download">Download</string>
+    <string name="we_are_downloading">We are downloading</string>
 </resources>
