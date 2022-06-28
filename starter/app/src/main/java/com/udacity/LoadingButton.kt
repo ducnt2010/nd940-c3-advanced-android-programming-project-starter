@@ -53,6 +53,8 @@ class LoadingButton @JvmOverloads constructor(
                     }
                     start()
                 }
+
+                isEnabled = false
             }
 
             ButtonState.Completed -> {
@@ -63,6 +65,7 @@ class LoadingButton @JvmOverloads constructor(
                 loadingProgress = 0f
                 text = context.getString(R.string.download)
                 invalidate()
+                isEnabled = true
             }
         }
 

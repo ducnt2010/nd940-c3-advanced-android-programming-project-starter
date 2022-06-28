@@ -4,8 +4,48 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="16dp"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".DetailActivity"
     tools:showIn="@layout/activity_detail">
+
+    <LinearLayout
+        android:id="@+id/fileNameLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            style="@style/TextDetailLabelStyle"
+            android:layout_weight="1"
+            android:text="@string/file_name" />
+
+        <TextView
+            android:id="@+id/textFileName"
+            style="@style/TextDetailStyle"
+            tools:text="@string/glide_description" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/statusLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/fileNameLayout">
+
+        <TextView
+            style="@style/TextDetailLabelStyle"
+            android:layout_weight="1"
+            android:text="@string/status" />
+
+        <TextView
+            android:id="@+id/textStatus"
+            style="@style/TextDetailStyle"
+            tools:text="@string/success" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

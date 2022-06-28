@@ -31,6 +31,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var action: NotificationCompat.Action
 
     private var urlDownload = ""
+    private var targetName = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,10 +41,11 @@ class MainActivity : AppCompatActivity() {
         registerReceiver(receiver, IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE))
 
         custom_button.setOnClickListener {
-            urlDownload = getUrl()
+            getUrl()
             if (urlDownload.isEmpty()) {
                 Toast.makeText(this, R.string.please_select_file_message, Toast.LENGTH_SHORT).show()
             } else {
+                (it as LoadingButton).setLoadingState(ButtonState.Loading)
                 download()
             }
         }
@@ -59,24 +61,45 @@ class MainActivity : AppCompatActivity() {
             val id = intent?.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1)
             Log.i(TAG, "onReceive: $id")
 
+            if (id == downloadID) {
+                val downloadManager = getSystemService(DOWNLOAD_SERVICE) as DownloadManager
 
-            val notificationManager=ContextCompat.getSystemService(
-                context,
-                NotificationManager::class.java
-            )
-            notificationManager?.sendNotification(
-                context.getString(R.string.notification_description),
-                true,
-                context
-            )
+                val query = DownloadManager.Query().setFilterById(id)
+                val cursor = downloadManager.query(query)
+                if (cursor.moveToFirst()) {
+                    val status =
+                        cursor.getInt(cursor.getColumnIndex(DownloadManager.COLUMN_STATUS))
+                    val isSuccess = status == DownloadManager.STATUS_SUCCESSFUL
+                    Log.i(TAG, "downloaded: $id isSuccess= $isSuccess ")
+
+//                    notificationManager?.cancelNotification()
+                    notificationManager?.sendNotification(
+                        targetName,
+                        isSuccess,
+                        context
+                    )
+                }
+                cursor.close()
+                custom_button.setLoadingState(ButtonState.Completed)
+            }
         }
     }
 
-    private fun getUrl() = when (radioGroupUrl.checkedRadioButtonId) {
-        R.id.radioButtonGlide -> GLIDE_URL
-        R.id.radioButtonLoadApp -> LOAD_APP_URL
-        R.id.radioButtonRetrofit -> RETROFIT_URL
-        else -> ""
+    private fun getUrl() {
+        when (radioGroupUrl.checkedRadioButtonId) {
+            R.id.radioButtonGlide -> {
+                urlDownload = GLIDE_URL
+                targetName = getString(R.string.glide_description)
+            }
+            R.id.radioButtonLoadApp -> {
+                urlDownload = LOAD_APP_URL
+                targetName = getString(R.string.loadapp_description)
+            }
+            R.id.radioButtonRetrofit -> {
+                urlDownload = RETROFIT_URL
+                targetName = getString(R.string.retrofit_description)
+            }
+        }
     }
 
     private fun createChannel(channelId: String, channelName: String) {
@@ -90,7 +113,7 @@ class MainActivity : AppCompatActivity() {
             notificationChannel.lightColor = Color.RED
             notificationChannel.description = getString(R.string.download)
 
-            val notificationManager = getSystemService(NotificationManager::class.java)
+            notificationManager = getSystemService(NotificationManager::class.java)
             notificationManager.createNotificationChannel(notificationChannel)
         }
     }

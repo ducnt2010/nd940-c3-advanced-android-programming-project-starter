@@ -23,5 +23,11 @@
     <string name="notification_channel_id" translatable="false">load_app_channel</string>
     <string name="notification_channel_name" translatable="false">Load App</string>
 
+    <string name="detail">Click to view detail</string>
+    <string name="file_name">File name:</string>
+    <string name="status">Status:</string>
+    <string name="success">Success</string>
+    <string name="failed">Failed</string>
+
 
 </resources>
